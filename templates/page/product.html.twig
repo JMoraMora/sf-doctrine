@@ -13,10 +13,7 @@
 
     <div class="px-4">
         {% for comment in product.comments %}
-            <div class="row mb-4">
-                <h4 class="col-md-2">ID #{{ comment.id }}</h4>
-                <h4 class="col-md-10">ID #{{ comment.content }}</h4>
-            </div>
+            {{ include('page/_comment.html.twig') }}
         {% endfor %}
     </div>
 {% endblock %}

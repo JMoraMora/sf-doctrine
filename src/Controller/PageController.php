@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Product;
 use App\Entity\Tag;
+use App\Entity\Comment;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 class PageController extends AbstractController
@@ -35,4 +37,13 @@ class PageController extends AbstractController
             'product' => $product,
         ]);
     }
+
+    #[Route('/comments', name: 'app_comments')]
+    public function comments(EntityManagerInterface $em): Response
+    {
+        return $this->render('page/home.html.twig', [
+            'comments' => $em->getRepository(Product::class)->findAll(),
+        ]);
+    }
+
 }
