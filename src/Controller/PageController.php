@@ -18,7 +18,7 @@ class PageController extends AbstractController
     public function index(EntityManagerInterface $em): Response
     {
         return $this->render('page/home.html.twig', [
-            'products' => $em->getRepository(Product::class)->findAll(),
+            'products' => $em->getRepository(Product::class)->findLatest(),
         ]);
     }
 
