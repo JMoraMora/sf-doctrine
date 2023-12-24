@@ -23,10 +23,11 @@ class PageController extends AbstractController
     }
 
     #[Route('/tag/{id}', name: 'app_tag')]
-    public function tag(Tag $tag): Response
+    public function tag(Tag $tag, EntityManagerInterface $em): Response
     {
         return $this->render('page/tag.html.twig', [
             'tag' => $tag,
+            'products' => $em->getRepository(Product::class)->findByTags($tag),
         ]);
     }
 
@@ -41,8 +42,8 @@ class PageController extends AbstractController
     #[Route('/comments', name: 'app_comments')]
     public function comments(EntityManagerInterface $em): Response
     {
-        return $this->render('page/home.html.twig', [
-            'comments' => $em->getRepository(Product::class)->findAll(),
+        return $this->render('page/comments.html.twig', [
+            'comments' => $em->getRepository(Comment::class)->findAllComments(),
         ]);
     }
 
