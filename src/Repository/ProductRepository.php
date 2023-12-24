@@ -24,10 +24,12 @@ class ProductRepository extends ServiceEntityRepository
    public function findLatest(): array
    {
        return $this->createQueryBuilder('product')
-           ->orderBy('product.id', 'DESC')
-           ->setMaxResults(12)
-           ->getQuery()
-           ->getResult();
+            ->addSelect('comments', 'tags')
+            ->leftJoin('product.comments', 'comments')
+            ->leftJoin('product.tags', 'tags')
+            ->orderBy('product.id', 'DESC')
+            ->getQuery()
+            ->getResult();
    }
 
 //    public function findOneBySomeField($value): ?Product
